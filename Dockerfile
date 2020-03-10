@@ -39,4 +39,4 @@ workdir /root
 ENV PATH=$PATH:/root/nginx/sbin
 
 # CMD nginx
-CMD while true; do sleep 10; done
+CMD ldconfig && while true; do sleep 10; done
