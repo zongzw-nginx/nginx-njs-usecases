@@ -1,0 +1,12 @@
+version: "3"
+services:
+  nginx:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: nginx-njs
+    ports:
+      - 8089:80
+    volumes:
+      - ${HOMEDIR}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${HOMEDIR}/src:/root/nginx/conf/scripts
+      - ${HOMEDIR}/data:/root/data
