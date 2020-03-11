@@ -16,3 +16,4 @@ See `Dockerfile` for more details such as nginx version, modules, compiling proc
 
 ### The file server with preview ability
 
+![image](./fileserver-preview.png)
