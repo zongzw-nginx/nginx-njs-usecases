@@ -1,12 +1,12 @@
 version: "3"
 services:
-  nginx:
+  autoindex_prev:
     image: zongzw/nginx-njs:latest
     build: ${HOMEDIR}
-    container_name: nginx-njs
+    container_name: autoindex_prev
     ports:
       - 8089:80
     volumes:
-      - ${HOMEDIR}/nginx.conf:/root/nginx/conf/nginx.conf
-      - ${HOMEDIR}/src:/root/nginx/conf/scripts
-      - ${HOMEDIR}/data:/root/data
+      - ${AUTOINDEX_PREV}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${AUTOINDEX_PREV}/src:/root/nginx/conf/scripts
+      - ${AUTOINDEX_PREV}/data:/root/data
