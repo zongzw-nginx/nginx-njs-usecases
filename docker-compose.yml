@@ -5,8 +5,18 @@ services:
     build: ${HOMEDIR}
     container_name: autoindex_prev
     ports:
-      - 8089:80
+      - 8091:80
     volumes:
       - ${AUTOINDEX_PREV}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${AUTOINDEX_PREV}/src:/root/nginx/conf/scripts
       - ${AUTOINDEX_PREV}/data:/root/data
+
+  data_masking:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: data_masking
+    ports:
+      - 8092:80
+    volumes:
+      - ${DATA_MASKING}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${DATA_MASKING}/masking.js:/root/nginx/conf/scripts/masking.js
