@@ -2,9 +2,12 @@
 
 To See the effect of the usecase, we will comment the following line first and then uncomment it to see the result comparation.
 
-
+```
+36        js_filter method_up;
+```
 
 If the line commented, 400 would be responsed.
+
     ```
     $ curl -v http://localhost:8093 -X get    # request with lowercase 'get'
 
