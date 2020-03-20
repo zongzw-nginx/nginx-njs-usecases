@@ -31,3 +31,13 @@ services:
       - ${VIRTUAL_PATCHING}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${VIRTUAL_PATCHING}/patching.js:/root/nginx/conf/scripts/patching.js
       - ${VIRTUAL_PATCHING}/kps:/root/nginx/conf/kps
+
+  fast_response:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: fast_response
+    ports:
+      - 8094:80
+    volumes:
+      - ${FAST_RESPONSE}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${FAST_RESPONSE}/response.js:/root/nginx/conf/scripts/response.js
