@@ -2,9 +2,10 @@
 
 To See the effect of the usecase, we will comment the following line first and then uncomment it to see the result comparation.
 
-
+https://github.com/zongzw-nginx/nginx-njs-usecases/blob/master/virtual_patching/nginx.conf#L36
 
 If the line commented, 400 would be responsed.
+
     ```
     $ curl -v http://localhost:8093 -X get    # request with lowercase 'get'
 
