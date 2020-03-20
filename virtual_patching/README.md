@@ -2,7 +2,9 @@
 
 To See the effect of the usecase, we will comment the following line first and then uncomment it to see the result comparation.
 
-https://github.com/zongzw-nginx/nginx-njs-usecases/blob/master/virtual_patching/nginx.conf#L36
+```
+36        js_filter method_up;
+```
 
 If the line commented, 400 would be responsed.
 
