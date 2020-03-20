@@ -31,6 +31,8 @@ RUN ./configure \
     --with-http_ssl_module \
     --with-stream \
     --with-http_image_filter_module \
+    --with-http_realip_module \
+    --with-stream_ssl_module \
     --add-dynamic-module=/root/njs-cc5c687ebc1c/nginx
 RUN make
 RUN make install

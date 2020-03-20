@@ -1,3 +1,3 @@
-### The file server with preview ability
+### 'autoindex' File Server with 'preview' Ability
 
 ![image](./fileserver-preview.png)

@@ -20,3 +20,14 @@ services:
     volumes:
       - ${DATA_MASKING}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${DATA_MASKING}/masking.js:/root/nginx/conf/scripts/masking.js
+
+  virtual_patching:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: virtual_patching
+    ports:
+      - 8093:80
+    volumes:
+      - ${VIRTUAL_PATCHING}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${VIRTUAL_PATCHING}/patching.js:/root/nginx/conf/scripts/patching.js
+      - ${VIRTUAL_PATCHING}/kps:/root/nginx/conf/kps

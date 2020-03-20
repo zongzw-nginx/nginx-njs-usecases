@@ -1,4 +1,4 @@
-## data masking
+### Data Masking for User Privacy with the NGINX JavaScript Module
 
 * IP Address Masking in Action
 
