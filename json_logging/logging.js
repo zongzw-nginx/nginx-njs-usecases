@@ -21,10 +21,19 @@ function loggingJson(r) {
         log[type] = {};
         var headers = r[type];
         for (var n in headers) {
-            r.log(`${n}: ${headers[n]}`);
+            // r.log(`${n}: ${headers[n]}`);
             log[type][n] = headers[n];
         }
     }
 
-    return JSON.stringify(log);
+    var logStr = JSON.stringify(log);
+
+    // r.subrequest to post the log to ELK.
+    // r.subrequest('/elk_endpoint', {
+    //    method: 'POST', body: logStr}, function(res){});
+
+    while(logStr.indexOf('"') != -1) {
+        logStr = logStr.replace('"', "'");
+    }
+    return logStr;
 }
