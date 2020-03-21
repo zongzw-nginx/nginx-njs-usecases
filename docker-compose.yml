@@ -41,3 +41,13 @@ services:
     volumes:
       - ${FAST_RESPONSE}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${FAST_RESPONSE}/response.js:/root/nginx/conf/scripts/response.js
+
+  json_logging:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: json_logging
+    ports:
+      - 8095:80
+    volumes:
+      - ${JSON_LOGGING}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${JSON_LOGGING}/logging.js:/root/nginx/conf/scripts/logging.js
