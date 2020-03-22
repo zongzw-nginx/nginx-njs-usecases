@@ -1,7 +1,1 @@
-{
-    "nginx_complete_devel": "2016-12-13",
-    "nginx_high_performance_web": "2017-02-13",
-    "nginx_module_devel": "2018-06-23",
-    "master_nginx": "2017-02-23",
-    "nginx_cookbook":  "2019-10-13"
-}
+{"strategy":"2014-02","diff_workforce":"2016-03","survial_guide":"2017-01","performance":"2019-12"}

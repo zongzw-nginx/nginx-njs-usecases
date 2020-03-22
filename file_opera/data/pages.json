@@ -1,7 +1,1 @@
-{
-    "nginx_complete_devel": 600,
-    "nginx_high_performance_web": 400,
-    "nginx_module_devel": 500,
-    "master_nginx": 700,
-    "nginx_cookbook":  900
-}
+{"strategy":228,"diff_workforce":245,"survial_guide":243,"performance":259}

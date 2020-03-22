@@ -15,8 +15,14 @@ function bookinfo(r) {
         var fs = require('fs');
         var data = fs.readFileSync(path, 'utf8');
     
-        var jd = JSON.parse(data);
-        return jd;
+        try {
+            var jd = JSON.parse(data);
+            return jd;
+        } catch (error) {
+            r.error(`Read content of ${path} failed.`);
+            r.return(500, `Read content of ${path} failed.`);
+            return;
+        }
     }
 
     function getFilePath(subject) {
@@ -28,7 +34,8 @@ function bookinfo(r) {
             return path;
         } catch (error) {
             r.error(`Failed to access ${path}: ${error.message}`);
-            return undefined;
+            r.return(500, `Failed to access ${path}: ${error.message}`);
+            return;
         }
     }
 
@@ -87,6 +94,7 @@ function bookinfo(r) {
         r.headersOut['Content-Type'] = 'application/json';
         
         r.return(200, JSON.stringify(rlt));
+        return;
     }
 
     function post(res) {
@@ -114,6 +122,7 @@ function bookinfo(r) {
             }
         }
         r.return(201, r.requestBody);
+        return;
     }
 
     // The subrequest is a asynchronizing function.
