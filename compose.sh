@@ -6,5 +6,6 @@ export DATA_MASKING=$HOMEDIR/data_masking
 export VIRTUAL_PATCHING=$HOMEDIR/virtual_patching
 export FAST_RESPONSE=$HOMEDIR/fast_response
 export JSON_LOGGING=$HOMEDIR/json_logging
+export FILE_OPERA=$HOMEDIR/file_opera
 
 docker-compose -f $HOMEDIR/docker-compose.yml up -d --force-recreate

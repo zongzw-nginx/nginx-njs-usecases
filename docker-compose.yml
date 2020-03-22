@@ -51,3 +51,25 @@ services:
     volumes:
       - ${JSON_LOGGING}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${JSON_LOGGING}/logging.js:/root/nginx/conf/scripts/logging.js
+
+  file_opera:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: file_opera
+    ports:
+      - 8096:80
+    volumes:
+      - ${FILE_OPERA}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${FILE_OPERA}/fileops.js:/root/nginx/conf/scripts/fileops.js
+      - ${FILE_OPERA}/data:/root/nginx/conf/data
+
+  # batching_request:
+  #   image: zongzw/nginx-njs:latest
+  #   build: ${HOMEDIR}
+  #   container_name: batching_request
+  #   ports:
+  #     - 8096:80
+  #   volumes:
+  #     - ${BATCHING_REQUEST}/nginx.conf:/root/nginx/conf/nginx.conf
+  #     - ${BATCHING_REQUEST}/batching.js:/root/nginx/conf/scripts/batching.js
+  #     - ${BATCHING_REQUEST}/data:/root/nginx/conf/data
