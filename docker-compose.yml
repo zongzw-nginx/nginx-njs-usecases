@@ -63,13 +63,14 @@ services:
       - ${FILE_OPERA}/fileops.js:/root/nginx/conf/scripts/fileops.js
       - ${FILE_OPERA}/data:/root/nginx/conf/data
 
-  # batching_request:
-  #   image: zongzw/nginx-njs:latest
-  #   build: ${HOMEDIR}
-  #   container_name: batching_request
-  #   ports:
-  #     - 8096:80
-  #   volumes:
-  #     - ${BATCHING_REQUEST}/nginx.conf:/root/nginx/conf/nginx.conf
-  #     - ${BATCHING_REQUEST}/batching.js:/root/nginx/conf/scripts/batching.js
-  #     - ${BATCHING_REQUEST}/data:/root/nginx/conf/data
+  batching_request:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: batching_request
+    ports:
+      - 8097:80
+    volumes:
+      - ${BATCHING_REQUEST}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${BATCHING_REQUEST}/batching.js:/root/nginx/conf/scripts/batching.js
+      - ${BATCHING_REQUEST}/data:/root/nginx/conf/data
+      - ${BATCHING_REQUEST}/favicon.ico:/root/nginx/conf/favicon.ico
