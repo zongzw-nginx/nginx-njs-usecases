@@ -5,8 +5,8 @@ This is an example of using stream njs module.
 The response body would be calculated sha1 hash, logged into error.log.
 
 ```
-    2020/03/23 12:30:25 [info] 47#0: *1 js: server sent fin, total pkgs: 2, \
-        body hash: 0190e761bba7bf93fac099718ddb33fd9b3bea1f      <- echo -n 'hello world.' | shasum -a 1
+2020/03/23 12:30:25 [info] 47#0: *1 js: server sent fin, total pkgs: 2, \
+    body hash: 0190e761bba7bf93fac099718ddb33fd9b3bea1f      <- echo -n 'hello world.' | shasum -a 1
 ```
 
 There are 2 situations:
