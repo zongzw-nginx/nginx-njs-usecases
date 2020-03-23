@@ -1,4 +1,4 @@
-### Defacement Detection with stream njs module
+### Defacement Detection/Auditting with Stream NJS Module
 
 This is an example of using stream njs module.
 
