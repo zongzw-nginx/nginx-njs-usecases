@@ -74,3 +74,13 @@ services:
       - ${BATCHING_REQUEST}/batching.js:/root/nginx/conf/scripts/batching.js
       - ${BATCHING_REQUEST}/data:/root/nginx/conf/data
       - ${BATCHING_REQUEST}/favicon.ico:/root/nginx/conf/favicon.ico
+
+  auditting_defacement:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: auditting_defacement
+    ports:
+      - 8098:80
+    volumes:
+      - ${AUDITTING_DEFACEMENT}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${AUDITTING_DEFACEMENT}/audit.js:/root/nginx/conf/scripts/audit.js
