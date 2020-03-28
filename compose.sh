@@ -9,5 +9,6 @@ export JSON_LOGGING=$HOMEDIR/json_logging
 export FILE_OPERA=$HOMEDIR/file_opera
 export BATCHING_REQUEST=$HOMEDIR/batching_request
 export AUDITTING_DEFACEMENT=$HOMEDIR/auditting_defacement
+export VALIDATE_REQUEST=$HOMEDIR/validate_request
 
 docker-compose -f $HOMEDIR/docker-compose.yml up -d --force-recreate

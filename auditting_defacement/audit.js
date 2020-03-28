@@ -8,8 +8,12 @@ function audit(s) {
         // s.log(`download data: ${data}`);
         if (!seqID) {
             var bodyPos = data.indexOf('\r\n\r\n') + 4;
-            var bodyPart = data.substr(bodyPos);
-            hash.update(bodyPart);
+            if (bodyPos != -1) { // http data
+                var bodyPart = data.substr(bodyPos);
+                hash.update(bodyPart);
+            } else {  // stream data
+                hash.update(data);
+            }
         } else {
             hash.update(data);
         }

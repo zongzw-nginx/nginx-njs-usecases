@@ -84,3 +84,13 @@ services:
     volumes:
       - ${AUDITTING_DEFACEMENT}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${AUDITTING_DEFACEMENT}/audit.js:/root/nginx/conf/scripts/audit.js
+  
+  validate_request:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: validate_request
+    ports:
+      - 8099:80
+    volumes:
+      - ${VALIDATE_REQUEST}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${VALIDATE_REQUEST}/validate.js:/root/nginx/conf/scripts/validate.js
