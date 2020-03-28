@@ -94,3 +94,13 @@ services:
     volumes:
       - ${VALIDATE_REQUEST}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${VALIDATE_REQUEST}/validate.js:/root/nginx/conf/scripts/validate.js
+
+  payload_proxy:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: payload_proxy
+    ports:
+      - 8100:80
+    volumes:
+      - ${PAYLOAD_PROXY}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${PAYLOAD_PROXY}/payload.js:/root/nginx/conf/scripts/payload.js
