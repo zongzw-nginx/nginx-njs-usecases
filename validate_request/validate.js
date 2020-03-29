@@ -10,7 +10,6 @@
 
 function validater(r) {
     try {
-        // r.log(`request method: ${r.method}, body: ${r.variables.request_body}`);
         JSON.parse(r.requestBody);
         return 'internal';
     } catch (error) {

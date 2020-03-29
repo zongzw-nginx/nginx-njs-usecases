@@ -17,9 +17,7 @@ function batching(r) {
         return subjects;
     }
 
-    var subjN = 0;
-    var subjI = 0;
-    var data = {};
+    var subjN = 0, subjI = 0, data = {};
 
     r.subrequest('/subjects/')
     .then(res => getSubjects(res))
@@ -33,7 +31,6 @@ function batching(r) {
             }
 
             data[resp.uri] = JSON.parse(resp.responseBody);
-            // r.log(`${resp.uri}, ${resp.responseBody}`);
 
             if (subjI == subjN) {
                 var rlt = {}
@@ -43,7 +40,6 @@ function batching(r) {
                         uri.lastIndexOf('/')+1, 
                         uri.lastIndexOf('.json') - uri.lastIndexOf('/') - 1
                     );
-                    // r.log(`subj: ${subj}`);
                     var values = data[uri];
                     
                     var names = Object.keys(values);
@@ -57,14 +53,8 @@ function batching(r) {
             }
         }
 
-        // r.log(`subjects: ${subjs}`);
         subjs.forEach(s => {
-            // r.log(`subject: ${s}`);
             r.subrequest(`/subjects/${s}.json`, done);
-        });
-        
-        // r.return(200, JSON.stringify(subjs));
-        
+        }); 
     });
-
 }

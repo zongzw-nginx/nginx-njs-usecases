@@ -1,6 +1,5 @@
 function payload(r) {
     try {
-        r.log(`request method: ${r.method}, body: ${r.variables.request_body}`);
         var jd = JSON.parse(r.requestBody);
         if (!jd.id) {
             r.return(415, `Invalid payload: missing id`);
