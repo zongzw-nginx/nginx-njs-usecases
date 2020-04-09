@@ -34,7 +34,7 @@ function get_mime_type(suffix) {
     return t;
 }
 
-function get_body_body(r, path, item) {
+function get_div_body(r, path, item) {
     var img_src, preview_src, download_src;
     var preview_btn, download_btn;
 
@@ -141,7 +141,7 @@ function preview(r) {
             </html>`;
         var body_content = '';
         jd.forEach(function(item) {
-            body_content = body_content + get_body_body(r, path, item);
+            body_content = body_content + get_div_body(r, path, item);
         });
 
         r.return(200, html_start + body_content + html_end);
