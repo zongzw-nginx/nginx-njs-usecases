@@ -1,86 +1,149 @@
-function hello(r) {
-    r.return(200, "hello world.");
+var mime_map = {
+    "text": ["css", "htm", "html", "js", "txt", "xml"],
+    "image": ["gif", "ico", "jpeg", "jpg", "png", "svg", "svgz"],
+    "document": ["doc", "docx", "ppt", "pptx"],
+    "audio": ["m4a", "mid", "midi", "mp3", "ogg", "ra"],
+    "video": ["3gpp", "3gp", "avi", "m4v", "mp4", "mpeg", "mpg", "mov", "wmv"],
+    "zip": ["7z", "rar", "zip"]
+}
+
+var item_width      = 200;
+var item_height     = 200;
+var image_width     = 100;
+var image_height    = 100;
+
+function get_image_width(r) {
+    var max = item_width * 0.75;
+    return (image_width > max)? max : image_width;
+}
+
+function get_image_height(r) {
+    var max = item_height * 0.75;
+    return (image_height > max)? max : image_height;
+}
+
+function get_mime_type(suffix) {
+    var t = 'unknown';
+    Object.keys(mime_map).forEach(type => {
+        if(mime_map[type].indexOf(suffix) != -1) {
+            t = type;
+            return;
+        }
+    });
+
+    return t;
+}
+
+function get_body_body(r, path, item) {
+    var img_src, preview_src, download_src;
+    var preview_btn, download_btn;
+
+    if (item.type === 'directory') {
+        img_src = "/__icons__/dir";
+        preview_src = `/prev${path}${item.name}/`;
+        download_src = ``;
+        preview_btn = 'open';
+        download_btn = '';
+
+    } else if (item.type === 'file') {
+        var i = item.name.lastIndexOf('.');
+        var file_suffix = item.name.substr(i+1, item.name.length-i-1);
+        var file_type = get_mime_type(file_suffix);
+        switch (file_type) {
+        
+            case 'image':
+                img_src = `/preview_image${path}${item.name}`;
+                preview_src = `/preview_data${path}${item.name}`;
+                download_src = `/download${path}${item.name}`;
+                preview_btn = 'preview';
+                download_btn = 'download';
+                break;
+
+            case 'text':
+            case 'audio':
+            case 'video':
+            case 'document':
+            case 'zip':
+                img_src = `/__icons__/${file_type}`;
+                preview_src = `/preview_data${path}${item.name}`;
+                download_src = `/download${path}${item.name}`;
+                preview_btn = 'preview';
+                download_btn = 'download';
+                break;
+
+            default:
+                img_src = "/__icons__/unknown";
+                preview_src = '';
+                download_src = `/data${path}${item.name}`;
+                preview_btn = '';
+                download_btn = 'download';
+                break;
+        }
+    }
+
+    return `
+        <div class="div_fixed_size">
+            <div class="box">
+            <img src="${img_src}"></img>
+            </div><br>
+            <b>name</b>: ${item.name}<br>
+            <b>size</b>: ${item.size}<br>
+            <a href="${preview_src}">${preview_btn}</a> 
+            <a href="${download_src}">${download_btn}</a>
+        </div>
+    `;
 }
 
 function preview(r) {
-    r.log("zongzw" + r.uri);
-    var suffix = r.uri.replace('/prev/', '/');
-    r.log('suffix ' + suffix);
-    r.subrequest(
-        `/json${suffix}`,
-        { method: 'GET' },
-        function (resp) {
-            var jd = JSON.parse(resp.responseBody);
-
-            var html_start = `<html><body><table>`;
-            var html_end = `</table></body></html>`;
-            var table_content = '';
-
-            var i = 0;
-
-            while (i < jd.length) {
-                var tr_content = "<tr>";
-                var j = 0;
-                while (j < 4 && i < jd.length) {
-                    var item = jd[i];
-                    var td, img_src, href_orig, href_down;
-                    
-                    var btn_prev = 'preview';
-                    var btn_down = "download";
-                    if(item.type === 'directory') {
-                        img_src = "/diricon";
-                        href_orig = `/prev${suffix}${item.name}/`;
-                        href_down = ``;
-                        btn_prev = 'open';
-                        btn_down = '';
-
-                    } else if (item.type === 'file') {
-                        
-                        href_orig = ``;
-                        btn_prev = '';
-                        href_down = `/data${suffix}${item.name}`;
-
-                        if (item.name.endsWith('txt')) {
-                            img_src = `/txticon`;
-                        } else if (item.name.endsWith('png')) {
-                            btn_prev = 'preview';
-                            img_src = `/data${suffix}${item.name}`;
-                            href_orig = `/origin${img_src}`;
-                            href_down = `/download${img_src}`;
-                        } else if (item.name.endsWith('jpg')) {
-                            btn_prev = 'preview';
-                            img_src = `/data${suffix}${item.name}`;
-                            href_orig = `/origin${img_src}`;
-                            href_down = `/download${img_src}`;
-                        } else if (item.name.endsWith('mp3')) {
-                            img_src = `/audioicon`;
-                        } else if (item.name.endsWith('mp4')) {
-                            img_src = `/videoicon`;
-                        } else {
-                            img_src = "/unknownicon";
-                        }
-                      
-                    } else {
-                        img_src = "/unknownicon";
-                        href_orig = `/origin${img_src}`;
-                        href_down = `/download${img_src}`;
+    var path = r.uri.replace('/prev/', '/');
+    r.subrequest(`/json${path}`, { method: 'GET' })
+    .then(resp => {
+        var jd = JSON.parse(resp.responseBody);
+        
+        var html_start = `<!DOCTYPE html>
+            <html>
+                <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                </head>
+                <style type="text/css">
+                    #wrap {
+                        display: flex;
+                        justify-content: left;
+                        flex-wrap: wrap;
                     }
-                    td = `
-                        <td>
-                            <img src="${img_src}" border=3></img><br>
-                            ${item.name}<br>
-                            <a href="${href_orig}">${btn_prev}</a> 
-                            <a href="${href_down}">${btn_down}</a>
-                        </td>
-                    `;
-                    tr_content += td;
-                    i++; j++;
-                }
+                    .div_fixed_size {
+                        width: ${item_width}px;
+                        height: ${item_height}px;
+                    }
+                    .box{
+                        width: ${get_image_width(r)}px;
+                        height: ${get_image_height(r)}px;
+                        display: box; 
+                        box-pack:center;
+                        box-orient: horizontal;
 
-                table_content += tr_content + '</tr>';
-            }
+                        /* Firefox */
+                        display: -moz-box;
+                        -moz-box-pack: center;
+                        -moz-box-orient: vertical;
 
-            r.return(200, html_start + table_content + html_end);
-        }
-    );
+                        /* Safari、Opera 以及 Chrome */
+                        display: -webkit-box;
+                        -webkit-box-pack:center;
+                        -webkit-box-orient:vertical; 
+                    }
+                </style>
+                <body>
+                    <div id="wrap" style="width: 100%;">`;
+        var html_end = `
+                    </div>
+                </body>
+            </html>`;
+        var body_content = '';
+        jd.forEach(function(item) {
+            body_content = body_content + get_body_body(r, path, item);
+        });
+
+        r.return(200, html_start + body_content + html_end);
+    });
 }
