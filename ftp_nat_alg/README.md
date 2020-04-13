@@ -97,3 +97,26 @@ ftp> quit
  ..
 2020/04/13 01:09:07 [info] 27#0: *1 upstream disconnected, bytes from/to client:74/386, bytes from/to upstream:376/74
 ```
+
+Notes:
+
+In this case, only one port is opened for data transferring.
+It would report `500 OOPS` error if we make 2 simultaneous connection.
+
+ftp client 1 is transferring data:
+
+```
+ftp> get linux_f5vpn.x86_64_7.1.8.2.rpm
+227 Entering Passive Mode (172,100,0,106,31,144).
+150 Opening BINARY mode data connection for linux_f5vpn.x86_64_7.1.8.2.rpm (34230196 bytes).
+```
+
+ftp client 2 reports the error.
+```
+ftp> passive
+Passive mode on.
+ftp> ls
+500 OOPS: vsf_sysutil_bind, maximum number of attempts to find a listening port exceeded
+500 OOPS: priv_sock_get_int
+Passive mode refused.
+```
