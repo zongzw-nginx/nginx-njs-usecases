@@ -21,7 +21,7 @@ In passive mode, `MYFTP` tells `FTP CLIENT` to connect `127.0.0.1:20000` which i
     -> 227 Entering Passive Mode (172,100,0,106,31,144).
 ``` 
 
-After that, `FTP CLIENT` can then let `NGINX` proxy for data transferring.
+After that, `FTP CLIENT` connects to `NGINX`, then let `NGINX` proxy for data transferring.
 
 **FTP CLIENT:**
 
