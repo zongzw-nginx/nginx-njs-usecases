@@ -13,3 +13,8 @@ See `Dockerfile` for more details such as nginx version, modules, compiling proc
 * docker-compose
 
 Navigate to each use case folders for details.
+
+## Run It
+
+Go into the container, and run `nginx`, then the server starts infront.
+Use your browser or curl command to access.

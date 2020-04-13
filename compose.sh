@@ -11,5 +11,12 @@ export BATCHING_REQUEST=$HOMEDIR/batching_request
 export AUDITTING_DEFACEMENT=$HOMEDIR/auditting_defacement
 export VALIDATE_REQUEST=$HOMEDIR/validate_request
 export PAYLOAD_PROXY=$HOMEDIR/payload_proxy
+export FTP_NAT_ALG=$HOMEDIR/ftp_nat_alg
 
-docker-compose -f $HOMEDIR/docker-compose.yml up -d --force-recreate
+export FTP_PASV_PORT=20000 # ftp data transfering IP
+export NGX_DATA_PORT=8080  # nginx data transfering IP
+# set as your physical IP for external access
+export HOST_ADDRESS=172.100.0.106
+
+docker-compose -f $HOMEDIR/docker-compose.yml up -d \
+    --force-recreate --remove-orphans
