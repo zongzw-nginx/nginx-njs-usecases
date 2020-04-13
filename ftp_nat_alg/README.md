@@ -14,14 +14,14 @@ In this usecase, `MYFTP` is not accessible from outside.
 
 In passive mode, `MYFTP` tells `FTP CLIENT` to connect `127.0.0.1:20000` which is unable to establish the connection. 
 
-`NGINX`'s `ftp.js` will change the PASV response payload:
+`NGINX`'s `ftp.js` will change the PASV response payload from `127.0.0.1:20000` to `172.100.0.106:8080` -- `NGINX`'s data transferring port.
 
 ```
-       227 Entering Passive Mode (172,0,0,1,78,32). 
+       227 Entering Passive Mode (127,0,0,1,78,32). 
     -> 227 Entering Passive Mode (172,100,0,106,31,144).
 ``` 
 
-After that, `FTP CLIENT` can then let `NGINX` proxy for data transformation.
+After that, `FTP CLIENT` can then let `NGINX` proxy for data transferring.
 
 **FTP CLIENT:**
 
