@@ -1,7 +1,13 @@
 
 function get_data_port(s) {
-    s.log(`[debug] FTP_PASV_PORT: ${process.env.FTP_PASV_PORT}`);
-    return process.env.FTP_PASV_PORT;
+    s.log(`[debug] FTP_1PASV_PORT: ${process.env.FTP_1PASV_PORT}`);
+    return process.env.FTP_1PASV_PORT;
+}
+
+function data_in_short(data) {
+    var dlen = 60;
+    if (data.length <= dlen) return data.trim();
+    else return data.substr(0, dlen).trim() + '..';
 }
 
 function get_pasv_conn(s, ipaddr, port) {
@@ -43,13 +49,12 @@ function get_pasv_conn(s, ipaddr, port) {
 }
 
 function ftp_controller(s) {
-    var dlen = 60;
     function handle_pasv(data, flags) {
 
-        s.log(`[debug] <<<< data(${data.length}): ${data.substr(0, dlen)} ..`);
+        s.log(`[debug] <<<< data(${data.length}): ${data_in_short(data)}`);
 
         var pasv_conn = get_pasv_conn(
-            s, process.env.HOST_ADDRESS, process.env.NGX_DATA_PORT
+            s, process.env.HOST_ADDRESS, process.env.NGX_1PASV_PORT
         );
 
         var found = (data.search(/227 .*\(.*\)/) != -1);
@@ -66,7 +71,7 @@ function ftp_controller(s) {
     }
 
     s.on('upload', function(data, flags){
-        s.log(`[debug] >>>> data(${data.length}): ${data.substr(0, dlen)} ..`);
+        s.log(`[debug] >>>> data(${data.length}): ${data_in_short(data)}`);
         var found = (data.search(/^PASV/) != -1);
         if (found) {
             s.log(`[debug] client send PASV command.`);

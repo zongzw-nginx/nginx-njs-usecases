@@ -105,44 +105,39 @@ services:
       - ${PAYLOAD_PROXY}/nginx.conf:/root/nginx/conf/nginx.conf
       - ${PAYLOAD_PROXY}/payload.js:/root/nginx/conf/scripts/payload.js
 
-  ftp_nat_alg:
+  ftp_1pasv_alg:
     image: zongzw/nginx-njs:latest
     build: ${HOMEDIR}
-    container_name: ftp_nat_alg
+    container_name: ftp_1pasv_alg
     ports:
-      - "8101:21"
-      - "$NGX_DATA_PORT:$NGX_DATA_PORT"
+      - "8121:21"
+      - "$NGX_1PASV_PORT:$NGX_1PASV_PORT"
     volumes:
-      - ${FTP_NAT_ALG}/nginx.conf:/root/nginx/conf/nginx.conf
-      - ${FTP_NAT_ALG}/ftp.js:/root/nginx/conf/scripts/ftp.js
+      - ${FTP_1PASV_ALG}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${FTP_1PASV_ALG}/ftp.js:/root/nginx/conf/scripts/ftp.js
     depends_on:
-      - myftp
+      - myftp_1pasv
     environment:
       # the host ipaddr compared with this container's.
       # only dotted IP, cannot be hostname
       - HOST_ADDRESS=${HOST_ADDRESS:-127.0.0.1}
       # ftp port in passive mode for data transformation.
-      - FTP_PASV_PORT=$FTP_PASV_PORT
-      - NGX_DATA_PORT=$NGX_DATA_PORT
+      - FTP_1PASV_PORT=$FTP_1PASV_PORT
+      - NGX_1PASV_PORT=$NGX_1PASV_PORT
 
-  myftp:
+  myftp_1pasv:
     image: fauria/vsftpd:latest
-    container_name: myftp
+    container_name: myftp_1pasv
     ports:
-      # - "8201:21"
-      # - $FTP_PASV_PORT:$FTP_PASV_PORT
+      - "$FTP_1PASV_PORT"
       - "21"
-      - "$FTP_PASV_PORT"
     environment:
       - FTP_USER=zongzw
       - FTP_PASS=123
       - PASV_ADDRESS=localhost
-      - PASV_ADDRESS_ENABLE=YES
-      - PASV_ADDRESS_RESOLVE=YES
       - PASV_ADDR_RESOLVE=YES
-      - PASV_ENABLE=YES
-      - PASV_MIN_PORT=$FTP_PASV_PORT
-      - PASV_MAX_PORT=$FTP_PASV_PORT
+      - PASV_MIN_PORT=$FTP_1PASV_PORT
+      - PASV_MAX_PORT=$FTP_1PASV_PORT
       - LOG_STDOUT=YES
     volumes:
-      - ${FTP_NAT_ALG}/shared:/home/vsftpd
+      - ${FTP_1PASV_ALG}/shared:/home/vsftpd
