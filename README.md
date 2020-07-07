@@ -18,3 +18,7 @@ Navigate to each use case folders for details.
 
 Go into the container, and run `nginx`, then the server starts infront.
 Use your browser or curl command to access.
+
+## DevOps Model
+
+![image](./devops-model.png)
