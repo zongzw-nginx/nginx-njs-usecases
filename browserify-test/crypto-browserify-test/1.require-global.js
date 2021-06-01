@@ -1,0 +1,1 @@
+global.cryptoa = require('crypto')
