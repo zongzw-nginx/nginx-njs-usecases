@@ -1,0 +1,1 @@
+browserify 1.require-uuid.js > 3.bundle.js
