@@ -141,3 +141,41 @@ services:
       - LOG_STDOUT=YES
     volumes:
       - ${FTP_1PASV_ALG}/shared:/home/vsftpd
+
+  ftp_npasv_alg:
+    image: zongzw/nginx-njs:latest
+    build: ${HOMEDIR}
+    container_name: ftp_npasv_alg
+    ports:
+      - "8122:21"
+      - "$FTP_NPASV_PORTS:$FTP_NPASV_PORTS"
+    volumes:
+      - ${FTP_NPASV_ALG}/nginx.conf:/root/nginx/conf/nginx.conf
+      - ${FTP_NPASV_ALG}/ftp.js:/root/nginx/conf/scripts/ftp.js
+    depends_on:
+      - myftp_npasv
+    environment:
+      # the host ipaddr compared with this container's.
+      # only dotted IP, cannot be hostname
+      - HOST_ADDRESS=${HOST_ADDRESS:-127.0.0.1}
+      # ftp port in passive mode for data transformation.
+      # default to 20001-20010
+
+  myftp_npasv:
+    image: fauria/vsftpd:latest
+    container_name: myftp_npasv
+    ports:
+      - "$FTP_NPASV_PORTS"
+      - "21"
+      # - "$FTP_NPASV_PORTS:$FTP_NPASV_PORTS"
+      # - "21:21"
+    environment:
+      - FTP_USER=zongzw
+      - FTP_PASS=123
+      - PASV_ADDRESS=localhost
+      - PASV_ADDR_RESOLVE=YES
+      - PASV_MIN_PORT=$FTP_NPASV_PORT_START
+      - PASV_MAX_PORT=$FTP_NPASV_PORT_END
+      - LOG_STDOUT=YES
+    volumes:
+      - ${FTP_NPASV_ALG}/shared:/home/vsftpd
