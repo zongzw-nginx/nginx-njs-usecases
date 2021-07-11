@@ -1,0 +1,12 @@
+version: "3"
+services:
+  autoindex_prev:
+    image: nginx-njs:latest
+    container_name: autoindex_prev
+    ports:
+      - 8091:80
+    volumes:
+      - ./nginx.conf:/root/nginx/conf/nginx.conf
+      - ./src:/root/nginx/conf/scripts
+      - ./data:/root/data
+    entrypoint: nginx
