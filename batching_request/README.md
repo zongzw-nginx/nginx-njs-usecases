@@ -1,6 +1,8 @@
 ### Batching Requests to Upstream API
 
-This use case shows using NJS to batching APIs to upstreams, and combining responses to send to the client.
+The official use case reference: https://www.nginx.com/blog/batching-api-requests-nginx-plus-javascript-module/
+
+This usecase shows using NJS to batching APIs to upstreams, and combining responses to send to the client.
 
 Data can be retrieved in different APIs:
 
@@ -8,7 +10,9 @@ Data can be retrieved in different APIs:
     /subjects/[author,description,pages,price,publish,title].json
 ```
 
-When access the API `/`, NGINX NJS helps us to combine the data together to json format.
+When access the API `/`, NGINX NJS can help us to combine the data together to json format.
+
+![image](./batching-request.png)
 
 ```
 $ curl -X GET http://localhost:8097
