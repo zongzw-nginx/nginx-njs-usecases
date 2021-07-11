@@ -1,0 +1,11 @@
+version: "3"
+services:
+    auditting_defacement:
+      image: nginx:1.21.1
+      container_name: auditting_defacement
+      ports:
+        - 8098:80
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+        - ./audit.js:/etc/nginx/scripts/audit.js
+      entrypoint: nginx
