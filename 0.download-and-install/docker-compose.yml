@@ -1,0 +1,12 @@
+version: "3"
+services:
+  basic_njs_usage:
+    image: nginx-njs:latest
+    build: .
+    container_name: basic_njs_usage
+    ports:
+      - 8090:8000
+    volumes:
+      - ./nginx.conf:/root/nginx/conf/nginx.conf
+      - ./http.js:/root/nginx/conf/http.js
+    entrypoint: nginx
