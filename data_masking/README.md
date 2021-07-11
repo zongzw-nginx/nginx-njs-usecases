@@ -1,5 +1,7 @@
 ### Data Masking for User Privacy with the NGINX JavaScript Module
 
+The official usecase reference: https://www.nginx.com/blog/data-masking-user-privacy-nginscript/
+
 * IP Address Masking in Action
 
   ```

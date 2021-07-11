@@ -1,3 +1,5 @@
+// fnv32a: http://www.isthe.com/chongo/tech/comp/fnv/
+
 function fnv32a(str) {
     var hval = 2166136261;
     for (var i = 0; i < str.length; ++i ) {

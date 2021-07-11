@@ -1,0 +1,11 @@
+version: "3"
+services:
+  data_masking:
+    image: nginx:1.21.1
+    container_name: data_masking
+    ports:
+      - 8092:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./masking.js:/etc/nginx/scripts/masking.js
+    entrypoint: nginx
