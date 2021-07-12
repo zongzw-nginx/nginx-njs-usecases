@@ -1,6 +1,6 @@
 /* A Note about the $request_body Variable
 
-    The JavaScript function json_validator uses the $request_body variable to 
+    The JavaScript function validater uses the $request_body variable to 
     perform JSON parsing. However, NGINX does not populate this variable 
     by default, and simply streams the request body to the backend without 
     making intermediate copies. 

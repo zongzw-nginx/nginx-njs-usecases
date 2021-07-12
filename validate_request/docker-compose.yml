@@ -1,0 +1,11 @@
+version: "3"
+services:
+  validate_request:
+    image: nginx:1.21.1
+    container_name: validate_request
+    ports:
+      - 8099:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./validate.js:/etc/nginx/scripts/validate.js
+    entrypoint: nginx
