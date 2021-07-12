@@ -1,0 +1,11 @@
+version: "3"
+services:
+  payload_proxy:
+    image: nginx:1.21.1
+    container_name: payload_proxy
+    ports:
+      - 8100:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./payload.js:/etc/nginx/scripts/payload.js
+    entrypoint: nginx
