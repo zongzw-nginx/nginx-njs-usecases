@@ -1,0 +1,11 @@
+version: "3"
+services:
+  json_logging:
+    image: nginx:1.21.1
+    container_name: json_logging
+    ports:
+      - 8095:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./logging.js:/etc/nginx/scripts/logging.js
+    entrypoint: nginx
