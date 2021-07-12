@@ -1,0 +1,12 @@
+version: "3"
+services:
+  file_opera:
+    image: nginx:1.21.1
+    container_name: file_opera
+    ports:
+      - 8096:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./fileops.js:/etc/nginx/scripts/fileops.js
+      - ./data:/root/nginx/conf/data
+    entrypoint: nginx
