@@ -58,3 +58,5 @@ function batching(r) {
         }); 
     });
 }
+
+export default { batching };

@@ -19,3 +19,12 @@ function response1(r) {
 function response2(r) {
     r.return(200, 'response 2');
 }
+
+export default {
+    response,
+    response1,
+    response2
+};
+
+// nginx: [emerg] SyntaxError: Non-default export is not supported in response.js
+// export {response1};
