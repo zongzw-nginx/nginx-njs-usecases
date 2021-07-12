@@ -1,0 +1,12 @@
+version: "3"
+services:
+  virtual_patching:
+    image: nginx:1.21.1
+    container_name: virtual_patching
+    ports:
+      - 8093:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./patching.js:/etc/nginx/scripts/patching.js
+      - ./kps:/etc/nginx/kps
+    entrypoint: nginx

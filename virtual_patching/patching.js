@@ -15,7 +15,7 @@ function method_up(s) {
 		  n = req.search('\n');
 	  }
 	  if (n != -1) {
-		  req = req.replace(/^(get|post)(\s\S+\sHTTP\/\d\.\d)/, function(m,method,uri_version) {
+		  req = req.replace(/^(get)(\s\S+\sHTTP\/\d\.\d)/, function(m,method,uri_version) {
 			  return method.toUpperCase() + uri_version;
 		  });
 		  s.send(proxy_proto_header + req, flags);
