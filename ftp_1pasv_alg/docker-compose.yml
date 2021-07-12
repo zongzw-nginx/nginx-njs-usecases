@@ -1,0 +1,38 @@
+version: "3"
+services:
+  ftp_1pasv_alg:
+    image: nginx:1.21.1
+    container_name: ftp_1pasv_alg
+    ports:
+      - "8121:21"
+      - "$NGX_1PASV_PORT:$NGX_1PASV_PORT"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ftp.js:/etc/nginx/scripts/ftp.js
+    depends_on:
+      - myftp_1pasv
+    environment:
+      # the host ipaddr compared with this container's.
+      # only dotted IP, cannot be hostname
+      - HOST_ADDRESS=${HOST_ADDRESS:-127.0.0.1}
+      # ftp port in passive mode for data transformation.
+      - FTP_1PASV_PORT=$FTP_1PASV_PORT
+      - NGX_1PASV_PORT=$NGX_1PASV_PORT
+    entrypoint: nginx
+
+  myftp_1pasv:
+    image: fauria/vsftpd:latest
+    container_name: myftp_1pasv
+    ports:
+      - "$FTP_1PASV_PORT"
+      - "21"
+    environment:
+      - FTP_USER=zongzw
+      - FTP_PASS=123
+      - PASV_ADDRESS=localhost
+      - PASV_ADDR_RESOLVE=YES
+      - PASV_MIN_PORT=$FTP_1PASV_PORT
+      - PASV_MAX_PORT=$FTP_1PASV_PORT
+      - LOG_STDOUT=YES
+    volumes:
+      - ./shared:/home/vsftpd
