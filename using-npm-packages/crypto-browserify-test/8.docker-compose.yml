@@ -1,0 +1,11 @@
+version: "3"
+services:
+  crypto_browserify_test:
+    image: nginx:1.21.1
+    container_name: crypto_browserify_test
+    ports:
+      - 8900:80
+    volumes:
+      - ${HOMEDIR}/6.njs-bundle.js:/etc/nginx/njs_bundle.js
+      - ./7.nginx.conf:/etc/nginx/nginx.conf
+    entrypoint: nginx
