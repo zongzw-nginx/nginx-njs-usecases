@@ -19,6 +19,13 @@ In this repo folder, We want to show how to use npm packages:
 
   An example of using npm package uuid to get uuidv4 string.
 
+## Docker based demonstration
+
+The different usecases are using the common demonstration environment - docker-based.
+
+See `docker-compose.yml` here, it starts a nodejs container `browserify_test`.
+
+Most of the `*.sh` under subfolders should be run within that container.
 
 ## Read from example folders
 
@@ -70,15 +77,7 @@ Let's still take `crypto-browserify-test` as the example:
 
   A generated file(not included in gitrepo file list).
 
-* `4.update-bundle.sh`
-
-  We need to do some little updates to the generated `3.bundle.js` file, because in njs environment, `const`, `let` don't work, they belong to ECMAScript6(https://www.w3schools.com/JS/js_const.asp).
-
-* `5.updated-bundle.js`
-
-  A generated file(not included in gitrepo file list).
-
-* `6.njs-code.js`
+* `4.njs-code.js`
 
   This is our main logic, telling njs how to reply the request, `r` is the request object containing many useful information.
 
@@ -86,13 +85,17 @@ Let's still take `crypto-browserify-test` as the example:
 
   In the code, we use `global.cryptoa` which we created and referenced in `1.require-global.js` instead of `require('crypto')` -- the builtin njs package.
 
-* `7.njs-bundle.js`
+* `5.gen-njs-bundle.sh`
+
+  A short generating script for combining `3.bundle.js` and `4.njs-code.js`.
+
+* `6.njs-bundle.js`
 
   A manually generated file(not included in gitrepo file list).
 
-  This file is generated through copying contents of both `5.updated-bundle.js` and `6.njs-code.js` into one single file, Thus we get the njs competible file.
+  This file is generated through copying contents of both `3.bundle.js` and `4.njs-code.js` into one single file, Thus we get the njs competible file.
 
-* `8.nginx.conf`
+* `7.nginx.conf`
 
   The simple nginx configuration file. In this file we can see the common steps of using njs:
   
@@ -100,33 +103,11 @@ Let's still take `crypto-browserify-test` as the example:
   2. `js_import njs_bundle.js;`
   3. `js_content njs_bundle.test;`
 
-* `9.run-nginx.sh`
+* `8.docker-compose.yml/9.compose.sh/9.uncompose.sh`
 
-  Starting nginx/njs within docker container, in the command, we use -v to mount `7.njs-bundle.js` and `8.nginx.conf` into nginx container.
+  Start/Stop nginx/njs within docker container, in the command, we use volumes to mount `6.njs-bundle.js` and `7.nginx.conf` into nginx container.
 
-
-### Final Effect
-
-* Starting NGINX:
-
-    ```
-    $ ./9.run-nginx.sh 
-    /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-    /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-    /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-    10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
-    10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
-    /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-    /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-    /docker-entrypoint.sh: Configuration complete; ready for start up
-    ```
-
-* Request and Response:
-
-    ```
-    $ curl localhost:8080?raw=zongw
-    hello njs: 94646f66c658b0286689a58a62a9f8a7853f05a3
-    ```
+See actual effects in the subfolder.
 
 ---
 

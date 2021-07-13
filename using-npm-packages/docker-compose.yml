@@ -1,0 +1,12 @@
+version: "3"
+services:
+  browserify_test:
+    image: browserify_env:latest
+    build: ${HOMEDIR}
+    container_name: browserify_test
+    volumes:
+      - .:/root/test
+    entrypoint:
+      - sh 
+      - -c
+      - "while true; do sleep 1; done"
