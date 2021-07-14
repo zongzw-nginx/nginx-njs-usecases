@@ -33,6 +33,8 @@ Run each `*.sh` to go forward step by step.
 Final effect of this demo:
 
 ```
-$ curl localhost:8901
-os.platform: browser
+$ curl localhost:8902
+uuidv4: 507e9494-8499-4860-b98f-027042cc9a93
+$ curl localhost:8902
+uuidv4: 2a454820-e1c7-493a-a6bc-840b26b23cad
 ```

@@ -27,6 +27,14 @@ See `docker-compose.yml` here, it starts a nodejs container `browserify_test`.
 
 Most of the `*.sh` under subfolders should be run within that container.
 
+To start the demonstration environment: 
+
+1. Run `./compose.yml`
+2. Go into the container: `docker exec -it browserify_test sh`
+3. Navigate to /root/test folder.
+4. cd the subfolder, such as: `cd crypto-browserify-test`
+5. Run scripts `*.sh`, see the following section.
+
 ## Read from example folders
 
 Each example is placed under a separate folder. Here, let take crypto as the example.

@@ -1,4 +1,5 @@
 node_modules
 3.bundle.js
-5.updated-bundle.js
-7.njs-bundle.js
+6.njs-bundle.js
+package-lock.json
+package.json
