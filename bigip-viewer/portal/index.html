@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>bigip resource grepper</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
+    <style>
+
+    </style>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="https://unpkg.com/jquery-base64@1.0.0/jquery.base64.js"></script>
+    <script src="src.js"></script>
+</head>
+
+<body>
+
+
+    <h3>BIG-IP Resource Greb Service: https://gitee.com/zongzw/bigip-resource-grebing-service</h3>
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="float: left; height: 400px; background-color: rgb(228, 244, 248);">
+            <div style="height: inherit;width: 15px; float: left;"></div>
+            <p>BIGIP Host</p><input type="text" , id="bigip_host" value="10.250.18.105:8443" style="width: 80%;"><br>
+            <p>BIGIP Username</p><input type="text" , id="bigip_username" value="admin" style="width: 80%;"><br>
+            <p>BIGIP Password</p><input type="text" , id="bigip_password" value="P@ssw0rd123" style="width: 80%;"><br>
+            <p>Partition</p><input type="text" , id="partition" value="Common" style="width: 80%;"><br><br>
+            <button id="refresh">refresh</button>
+            <pre id="status">'refresh' to list</pre>
+            <br>
+        </div>
+
+        <div style="float: left; height: 100vh; ">
+            <div style="float: left; width: 700px; height: 50%;">
+                <div
+                    style="float: left; width: 25%; height: 50vh; background-color: rgb(249, 205, 205); margin-left: 2%;">
+                    <div style="height: inherit; width: 5px; float: left;"></div>
+                    <br>
+                    <p>Kind: </p><input type="text" , id="kind1" value="ltm/virtual" style="width: 80%;"><br>
+                    <p>Fields: </p><input type="text" , id="fields1" value="partition,name,fullPath"
+                        style="width: 80%;"><br>
+                </div>
+                <div style="float: left; width: 70%; height: 50vh; background-color: rgb(193, 246, 205);">
+                    <pre id="1">no data</pre><br>
+                </div>
+            </div>
+
+            <div style="float: left; width: 700px; height: 50%;">
+                <div
+                    style="float: left; width: 25%; height: 50vh; background-color: rgb(249, 205, 205); margin-left: 2%;">
+                    <div style="height: inherit; width: 5px; float: left;"></div>
+                    <br>
+                    <p>Kind: </p><input type="text" , id="kind2" value="ltm/pool" style="width: 80%;"><br>
+                    <p>Fields: </p><input type="text" , id="fields2" value="partition,name,fullPath"
+                        style="width: 80%;"><br>
+                </div>
+                <div style="float: left; width: 70%; height: 50vh; background-color: rgb(193, 246, 205);">
+                    <pre id="2">no data</pre><br>
+                </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            <div style="float: left; width: 700px; height: 50%;">
+                <div
+                    style="float: left; width: 25%; height: 50vh; background-color: rgb(249, 205, 205); margin-left: 2%;">
+                    <div style="height: inherit; width: 5px; float: left;"></div>
+                    <br>
+                    <p>Kind: </p><input type="text" , id="kind3" value="net/arp" style="width: 80%;"><br>
+                    <p>Fields: </p><input type="text" , id="fields3" value="partition,name,fullPath"
+                        style="width: 80%;"><br>
+                </div>
+                <div style="float: left; width: 70%; height: 50vh; background-color: rgb(193, 246, 205);">
+                    <pre id="3">no data</pre><br>
+                </div>
+            </div>
+
+            <div style="float: left; width: 700px; height: 50%;">
+                <div
+                    style="float: left; width: 25%; height: 50vh; background-color: rgb(249, 205, 205); margin-left: 2%;">
+                    <div style="height: inherit; width: 5px; float: left;"></div>
+                    <br>
+                    <p>Kind: </p><input type="text" , id="kind4" value="net/fdb/tunnel/~Common~fl-tunnel/records" style="width: 80%;"><br>
+                    <p>Fields: </p><input type="text" , id="fields4" value="partition,name,fullPath"
+                        style="width: 80%;"><br>
+                </div>
+                <div style="float: left; width: 70%; height: 50vh; background-color: rgb(193, 246, 205);">
+                    <pre id="4">no data</pre><br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
